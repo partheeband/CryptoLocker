@@ -20,7 +20,7 @@ Button button;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i =new Intent(getApplicationContext(),NavigationDrawerActivity.class);
+                Intent i =new Intent(getApplicationContext(),GoogleSignInActivity.class);
                 startActivity(i);
             }
         });

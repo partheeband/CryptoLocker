@@ -55,7 +55,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp">
 
         <ImageView
@@ -82,18 +82,20 @@
         android:layout_marginVertical="5dp"
         android:layout_marginLeft="20dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imageView_UserProfileIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher_round" />
+            android:layout_centerVertical="true"
+            app:srcCompat="@mipmap/ic_launcher_round"
+            />
 
         <TextView
             android:id="@+id/textViewUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:paddingTop="10dp"
             android:layout_toEndOf="@id/imageView_UserProfileIcon"
             android:text="User Name"
             android:textSize="8pt"

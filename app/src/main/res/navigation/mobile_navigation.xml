@@ -22,4 +22,10 @@
         android:name="com.example.cryptolocker.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
+
+    <activity
+        android:id="@+id/nav_logout"
+        android:name="com.example.cryptolocker.LogoutActivity"
+        android:label="Logout"
+        tools:layout="@layout/activity_logout" />
 </navigation>
