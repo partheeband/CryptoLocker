@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cryptolocker.Home;
 import com.example.cryptolocker.HomeAdapter;
 import com.example.cryptolocker.R;
+import com.example.cryptolocker.ViewDataActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -103,5 +104,12 @@ public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener
         Home home=homeList.get(position);
         Toast.makeText(getActivity(), "CardView Position: "+String.valueOf(position)+" Title:"+home.getTitle(), Toast.LENGTH_SHORT).show();
         Log.d("cardviewPosition", String.valueOf(position));
+
+        Intent i=new Intent(getActivity(), ViewDataActivity.class);
+        i.putExtra("title",home.getTitle());
+        i.putExtra("subtitle1",home.getSubTitle1());
+        i.putExtra("subtitle2",home.getSubTitle2());
+        startActivity(i);
+
     }
 }
