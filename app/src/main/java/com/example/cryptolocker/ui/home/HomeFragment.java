@@ -1,12 +1,16 @@
 package com.example.cryptolocker.ui.home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -33,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener{
 
 //    private HomeViewModel homeViewModel;
 
@@ -63,10 +67,10 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         homeList=new ArrayList<>();
-        adapter =new HomeAdapter(getActivity(),homeList);
+
+        adapter =new HomeAdapter(getActivity(),homeList,this);
         recyclerView.setAdapter(adapter);
 
-        String id="id";
         dbHome = FirebaseDatabase.getInstance().getReference("Home");
         dbHome.addListenerForSingleValueEvent(valueEventListener);
 
@@ -93,4 +97,11 @@ public class HomeFragment extends Fragment {
 
         }
     };
+
+    @Override
+    public void onNoteClick(int position) {
+        Home home=homeList.get(position);
+        Toast.makeText(getActivity(), "CardView Position: "+String.valueOf(position)+" Title:"+home.getTitle(), Toast.LENGTH_SHORT).show();
+        Log.d("cardviewPosition", String.valueOf(position));
+    }
 }

@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class HomeAdapter extends RecyclerView.Adapter<com.example.cryptolocker.HomeAdapter.HomeViewHolder>{
     private Context mCtx;
     private List<com.example.cryptolocker.Home> homeList;
+    private onNoteListener mOnNoteListener;
 
-    public HomeAdapter(Context mCtx, List<com.example.cryptolocker.Home> homeList) {
+    public HomeAdapter(Context mCtx, List<com.example.cryptolocker.Home> homeList,onNoteListener onNoteListener) {
         this.mCtx = mCtx;
         this.homeList = homeList;
+        this.mOnNoteListener=onNoteListener;
     }
 
     @NonNull
@@ -26,7 +28,7 @@ public class HomeAdapter extends RecyclerView.Adapter<com.example.cryptolocker.H
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mCtx).inflate(R.layout.list_layout_home, parent, false);
-        return new HomeViewHolder(view);
+        return new HomeViewHolder(view,mOnNoteListener);
     }
 
     @Override
@@ -43,15 +45,15 @@ public class HomeAdapter extends RecyclerView.Adapter<com.example.cryptolocker.H
 
         //to populate image based on data
         if (home.getCategory().equals("social media")){
-            holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.icon_social_media));
+            holder.imageView_category.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.icon_social_media));
         }
         else if(home.getCategory().equals("bank"))
         {
-            holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.icon_bank));
+            holder.imageView_category.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.icon_bank));
         }
         else
         {
-            holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.icon_custom));
+            holder.imageView_category.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.icon_custom));
         }
 
     }
@@ -61,17 +63,28 @@ public class HomeAdapter extends RecyclerView.Adapter<com.example.cryptolocker.H
         return homeList.size();
     }
 
-    public class HomeViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+    public class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        ImageView imageView_category,imageView_ViewData;
         TextView textViewTitle,textViewSubTitle1,textViewSubTitle2;
 
-        public HomeViewHolder(@NonNull View itemView) {
+        onNoteListener onNoteListener;
+        public HomeViewHolder(@NonNull View itemView, onNoteListener mOnNoteListener) {
             super(itemView);
 
-            imageView =(ImageView)itemView.findViewById(R.id.imageView_home_category);
+            imageView_category =(ImageView)itemView.findViewById(R.id.imageView_home_category);
             textViewTitle=(TextView)itemView.findViewById(R.id.textView_home_title);
             textViewSubTitle1=(TextView)itemView.findViewById(R.id.textView_home_subtitle1);
             textViewSubTitle2=(TextView)itemView.findViewById(R.id.textView_home_subtitle2);
+            imageView_ViewData=(ImageView)itemView.findViewById(R.id.imageView_ViewData);
+
+            this.onNoteListener=mOnNoteListener;
+            imageView_ViewData.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) { onNoteListener.onNoteClick(getAdapterPosition()); }
+    }
+    public interface onNoteListener{
+        void onNoteClick(int position);
     }
 }
