@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,11 +32,18 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
 
     FirebaseAuth firebaseAuth;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_sign_in);
 
+
+        getSupportActionBar().hide();
+
+
+        progressDialog= new ProgressDialog(this);
 
         signIn = findViewById(R.id.signin);
         signIn.setSize(SignInButton.SIZE_STANDARD);
@@ -61,6 +69,8 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (signIn.equals(v)) {
+            progressDialog.setMessage(" Please Wait...");
+            progressDialog.show();
             signIn();
             // ...
         }
@@ -88,12 +98,13 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 Toast.makeText(getApplicationContext(), "Your Google Account is connected to our application.", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), NavigationDrawerActivity.class));
+                                progressDialog.dismiss();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-
+                                progressDialog.dismiss();
                             }
                         });
 
