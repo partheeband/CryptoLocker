@@ -6,10 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".ViewDataActivity">
 
+
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="TextView" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:textSize="20dp"
+        android:text="Title" />
+
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/textViewTitle"
+        android:drawableRight="@drawable/icons8_copy"
+        android:ems="15"
+        android:inputType="textPersonName"
+        android:text="Title"
+        />
+
+    <TextView
+        android:id="@+id/textViewSubtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/editTextTitle"
+        android:textSize="20dp"
+        android:text="Subtitle1" />
+
+    <EditText
+        android:id="@+id/editTextSubTitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/textViewSubtitle1"
+        android:drawableRight="@drawable/icons8_copy"
+        android:ems="15"
+        android:inputType="textPersonName"
+        />
+
+
+    <TextView
+        android:id="@+id/textViewSubtitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/editTextSubTitle1"
+        android:textSize="20dp"
+        android:text="Subtitle2" />
+
+
+    <EditText
+        android:id="@+id/editTextSubTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/textViewSubtitle2"
+        android:drawableRight="@drawable/icons8_copy"
+        android:ems="15"
+        android:inputType="textPersonName" />
+
 </RelativeLayout>

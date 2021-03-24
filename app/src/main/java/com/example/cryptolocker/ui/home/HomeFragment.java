@@ -28,6 +28,8 @@ import com.example.cryptolocker.Home;
 import com.example.cryptolocker.HomeAdapter;
 import com.example.cryptolocker.R;
 import com.example.cryptolocker.ViewDataActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,11 +43,11 @@ import java.util.List;
 public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener{
 
 //    private HomeViewModel homeViewModel;
-
     RecyclerView recyclerView;
     HomeAdapter adapter;
     List<Home> homeList;
-
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
     DatabaseReference dbHome;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +74,10 @@ public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener
         adapter =new HomeAdapter(getActivity(),homeList,this);
         recyclerView.setAdapter(adapter);
 
-        dbHome = FirebaseDatabase.getInstance().getReference("Home");
+        firebaseAuth= FirebaseAuth.getInstance();
+        user=firebaseAuth.getCurrentUser();
+
+        dbHome = FirebaseDatabase.getInstance().getReference("Home").child(user.getUid());
         dbHome.addListenerForSingleValueEvent(valueEventListener);
 
 
@@ -102,13 +107,15 @@ public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener
     @Override
     public void onNoteClick(int position) {
         Home home=homeList.get(position);
-        Toast.makeText(getActivity(), "CardView Position: "+String.valueOf(position)+" Title:"+home.getTitle(), Toast.LENGTH_SHORT).show();
-        Log.d("cardviewPosition", String.valueOf(position));
+        //Toast.makeText(getActivity(), "CardView Position: "+String.valueOf(position)+" Title:"+home.getTitle(), Toast.LENGTH_SHORT).show();
+        //Log.d("cardviewPosition", String.valueOf(position));
 
         Intent i=new Intent(getActivity(), ViewDataActivity.class);
         i.putExtra("title",home.getTitle());
         i.putExtra("subtitle1",home.getSubTitle1());
         i.putExtra("subtitle2",home.getSubTitle2());
+        i.putExtra("category",home.getCategory());
+
         startActivity(i);
 
     }

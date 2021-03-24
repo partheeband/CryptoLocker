@@ -1,42 +1,27 @@
 package com.example.cryptolocker;
 
 public class Home {
-    private int id;
-    private String title,subtitle1,subtitle2;
-    private int image;
-
-    private String category;
+    private String title, subTitle1, subTitle2,category;
 
 
-    public int getId() {
-        return id;
-    }
+
     public String getTitle() {
         return title;
     }
     public String getSubTitle1() {
-        return subtitle1;
+        return subTitle1;
     }
     public String getSubTitle2() {
-        return subtitle2;
+        return subTitle2;
     }
-    public int getImage() {
-        return image;
-    }
-
     public String getCategory() { return category; }
 
 
-
-
-    public Home(int id, String title, String subtitle1, String subtitle2, int image, String category) {
-        this.id = id;
+    public Home(String title, String subTitle1, String subTitle2, String category) {
         this.title = title;
-        this.subtitle1 = subtitle1;
-        this.subtitle2 = subtitle2;
-        this.image = image;
-
-        this.category=category;
+        this.subTitle1 = subTitle1;
+        this.subTitle2 = subTitle2;
+        this.category = category;
     }
 
     public Home() {

@@ -1,22 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.create.CreateFragment">
 
+
+    <ImageView
+        android:id="@+id/imageViewCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/icons8_create" />
+
     <TextView
-        android:id="@+id/text_create"
-        android:layout_width="match_parent"
+        android:id="@+id/textview_create"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_toEndOf="@+id/imageViewCreate"
+        android:textSize="20dp"
+        android:text="Create Record"
+        android:textStyle="bold"/>
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/spinner_bg_layout"
+        android:layout_below="@+id/textview_create"
+
+        />
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/textview_create"
+        android:text="Save"/>
+
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/spinnerCategory"
+        android:layout_marginHorizontal="20dp"
+        android:hint="Title"
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/icons8_edit_96"
+        android:drawablePadding="30dp"/>
+
+    <EditText
+        android:id="@+id/editTextSubTitle1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/editTextTitle"
+        android:layout_marginHorizontal="20dp"
+        android:ems="10"
+        android:hint="SubTitle1"
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/icons8_user_96"
+        android:drawablePadding="30dp"/>
+
+    <EditText
+        android:id="@+id/editTextSubTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/editTextSubTitle1"
+        android:layout_marginHorizontal="20dp"
+        android:ems="10"
+        android:hint="SubTitle2"
+        android:inputType="textPassword"
+        android:drawableLeft="@drawable/icons8_lock"
+        android:drawableRight="@drawable/eye"
+        android:drawablePadding="30dp" />
+
+
+</RelativeLayout>
