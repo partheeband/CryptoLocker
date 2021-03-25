@@ -1,10 +1,8 @@
 package com.example.cryptolocker.ui.home;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +12,9 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -105,15 +100,17 @@ public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener
     };
 
     @Override
-    public void onNoteClick(int position) {
+    public void onNoteClick(int position, String title, String subTitle1, String subTitle2) {
         Home home=homeList.get(position);
+
+        //Toast.makeText(getActivity(), title, Toast.LENGTH_SHORT).show();
         //Toast.makeText(getActivity(), "CardView Position: "+String.valueOf(position)+" Title:"+home.getTitle(), Toast.LENGTH_SHORT).show();
         //Log.d("cardviewPosition", String.valueOf(position));
 
         Intent i=new Intent(getActivity(), ViewDataActivity.class);
-        i.putExtra("title",home.getTitle());
-        i.putExtra("subtitle1",home.getSubTitle1());
-        i.putExtra("subtitle2",home.getSubTitle2());
+        i.putExtra("title",title);
+        i.putExtra("subtitle1",subTitle1);
+        i.putExtra("subtitle2",subTitle2);
         i.putExtra("category",home.getCategory());
 
         startActivity(i);

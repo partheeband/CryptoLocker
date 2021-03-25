@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.cryptolocker.Aes256;
 import com.example.cryptolocker.Home;
 import com.example.cryptolocker.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +37,8 @@ public class CreateFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     DatabaseReference databaseReference;
+
+    Date currentTime;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 //        createViewModel =
@@ -63,7 +66,6 @@ public class CreateFragment extends Fragment {
         user=firebaseAuth.getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference();
 
-        Date currentTime = Calendar.getInstance().getTime();
         Toast.makeText(getActivity(), String.valueOf(currentTime), Toast.LENGTH_SHORT).show();
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -98,6 +100,7 @@ public class CreateFragment extends Fragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentTime = Calendar.getInstance().getTime();
                 saveData_To_Firebase();
             }
         });
@@ -121,6 +124,14 @@ public class CreateFragment extends Fragment {
         {
             category=computeCategory(spinner_category_position);
         }
+
+        //Encryption occurs here:
+        title=Aes256.encrypt(title);
+        subtitle1=Aes256.encrypt(subtitle1);
+        subtitle2=Aes256.encrypt(subtitle2);
+        category=Aes256.encrypt(category);
+        //
+
         if (TextUtils.isEmpty(title)||TextUtils.isEmpty(subtitle1)||TextUtils.isEmpty(subtitle2))
         {
             Toast.makeText(getActivity(), "Please enter credentials", Toast.LENGTH_SHORT).show();
@@ -128,7 +139,7 @@ public class CreateFragment extends Fragment {
         }
 
         Home home=new Home(title, subtitle1, subtitle2,category);
-        databaseReference.child("Home").child(user.getUid()).setValue(home);
+        databaseReference.child("Home").child(user.getUid()).child(String.valueOf(currentTime)).setValue(home);
 
         Toast.makeText(getActivity(), "Data saved to firebase", Toast.LENGTH_SHORT).show();
     }

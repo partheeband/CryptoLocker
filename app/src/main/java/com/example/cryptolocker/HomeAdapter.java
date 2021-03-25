@@ -35,19 +35,29 @@ public class HomeAdapter extends RecyclerView.Adapter<com.example.cryptolocker.H
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
 
         com.example.cryptolocker.Home home=homeList.get(position);
-        holder.textViewTitle.setText(home.getTitle());
-        holder.textViewSubTitle1.setText(home.getSubTitle1());
-        holder.textViewSubTitle2.setText(home.getSubTitle2());
+
+
+        //Decryption occurs here:
+        String title,subTitle1,subTitle2,category;
+        title=Aes256.decrypt(home.getTitle());
+        subTitle1=Aes256.decrypt(home.getSubTitle1());
+        subTitle2=Aes256.decrypt(home.getSubTitle2());
+        category=Aes256.decrypt(home.getCategory());
+        //
+
+        holder.textViewTitle.setText(title);
+        holder.textViewSubTitle1.setText(subTitle1);
+        holder.textViewSubTitle2.setText(subTitle2);
 
 
         //holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(home.getImage()));
 
 
         //to populate image based on data
-        if (home.getCategory().equals("social media")){
+        if (category.equals("social media")){
             holder.imageView_category.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.icon_social_media));
         }
-        else if(home.getCategory().equals("bank"))
+        else if(category.equals("bank"))
         {
             holder.imageView_category.setImageDrawable(mCtx.getResources().getDrawable(R.drawable.icon_bank));
         }
@@ -82,9 +92,15 @@ public class HomeAdapter extends RecyclerView.Adapter<com.example.cryptolocker.H
         }
 
         @Override
-        public void onClick(View view) { onNoteListener.onNoteClick(getAdapterPosition()); }
+        public void onClick(View view) {
+            String title,subTitle1,subTitle2;
+            title= (String) textViewTitle.getText();
+            subTitle1= (String) textViewSubTitle1.getText();
+            subTitle2= (String) textViewSubTitle2.getText();
+            onNoteListener.onNoteClick(getAdapterPosition(),title,subTitle1,subTitle2);
+        }
     }
     public interface onNoteListener{
-        void onNoteClick(int position);
+        void onNoteClick(int position, String s, String subTitle1, String title);
     }
 }

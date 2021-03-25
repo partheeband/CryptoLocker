@@ -50,6 +50,12 @@ public class ViewDataActivity extends AppCompatActivity implements View.OnClickL
             getCategory= (String) bd.get("category");
         }
 
+
+        //Decryption occurs here
+        getCategory=Aes256.decrypt(getCategory);
+        //
+
+
         editTextTitle.setText(getTitle);
         editTextSubTitle1.setText(getSubTitle1);
         editTextSubTitle2.setText(getSubTitle2);
