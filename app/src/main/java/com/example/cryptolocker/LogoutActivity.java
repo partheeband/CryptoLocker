@@ -23,17 +23,18 @@ public class LogoutActivity extends AppCompatActivity {
 
         logout();
     }
+
     public void logout() {
         final ProgressDialog progressDialog;
-        progressDialog= new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(" Please Wait...");
         progressDialog.show();
         FirebaseAuth.getInstance().signOut();
-        GoogleSignIn.getClient(this,new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()).signOut()
+        GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()).signOut()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        startActivity(new Intent(getApplicationContext(),GoogleSignInActivity.class));
+                        startActivity(new Intent(getApplicationContext(), GoogleSignInActivity.class));
                         finish();
                     }
                 })

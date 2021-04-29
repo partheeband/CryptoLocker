@@ -1,5 +1,6 @@
 package com.example.cryptolocker.ui.create;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,12 +18,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cryptolocker.Aes256;
 import com.example.cryptolocker.Home;
+import com.example.cryptolocker.NavigationDrawerActivity;
 import com.example.cryptolocker.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,6 +42,7 @@ public class CreateFragment extends Fragment {
     DatabaseReference databaseReference;
 
     Date currentTime;
+    ArrayList<String> encryptedData;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 //        createViewModel =
@@ -66,7 +70,7 @@ public class CreateFragment extends Fragment {
         user=firebaseAuth.getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference();
 
-        Toast.makeText(getActivity(), String.valueOf(currentTime), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), String.valueOf(currentTime), Toast.LENGTH_SHORT).show();
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -102,6 +106,7 @@ public class CreateFragment extends Fragment {
             public void onClick(View view) {
                 currentTime = Calendar.getInstance().getTime();
                 saveData_To_Firebase();
+                startActivity(new Intent(getContext(), NavigationDrawerActivity.class));
             }
         });
 
@@ -125,12 +130,19 @@ public class CreateFragment extends Fragment {
             category=computeCategory(spinner_category_position);
         }
 
-        //Encryption occurs here:
-        title=Aes256.encrypt(title);
-        subtitle1=Aes256.encrypt(subtitle1);
-        subtitle2=Aes256.encrypt(subtitle2);
-        category=Aes256.encrypt(category);
-        //
+//        //Encryption occurs here:
+//        title=Aes256.encrypt(title);
+//        subtitle1=Aes256.encrypt(subtitle1);
+//        subtitle2=Aes256.encrypt(subtitle2);
+//        category=Aes256.encrypt(category);
+//        //
+
+        encryptedData=Aes256.encrypt(title,subtitle1,subtitle2,category,user.getUid());
+
+        title=encryptedData.get(0);
+        subtitle1=encryptedData.get(1);
+        subtitle2=encryptedData.get(2);
+        category=encryptedData.get(3);
 
         if (TextUtils.isEmpty(title)||TextUtils.isEmpty(subtitle1)||TextUtils.isEmpty(subtitle2))
         {

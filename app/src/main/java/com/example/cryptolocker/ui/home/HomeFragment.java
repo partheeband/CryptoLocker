@@ -1,5 +1,6 @@
 package com.example.cryptolocker.ui.home;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.cryptolocker.Aes256;
 import com.example.cryptolocker.Home;
 import com.example.cryptolocker.HomeAdapter;
 import com.example.cryptolocker.R;
@@ -44,6 +46,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     DatabaseReference dbHome;
+
+    private ProgressDialog progressDialog;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 //        homeViewModel =
@@ -59,6 +63,10 @@ public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener
 //                textView.setText(s);
 //            }
 //        });
+
+        progressDialog= new ProgressDialog(getContext());
+        progressDialog.setMessage(" Decrypting Data \n Please Wait...");
+        progressDialog.show();
 
         recyclerView=(RecyclerView)root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -83,14 +91,22 @@ public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             homeList.clear();
-
-            if (dataSnapshot.exists()) {
+            if (!dataSnapshot.exists()) {
+                progressDialog.dismiss();
+            }
+            else {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Home home = snapshot.getValue(Home.class);
+
+                    //decrypting here
+                    home.decryptHome(user.getUid());
                     homeList.add(home);
+                    //Toast.makeText(getActivity(), String.valueOf(homeList), Toast.LENGTH_SHORT).show();
                 }
+                progressDialog.dismiss();
                 adapter.notifyDataSetChanged();
             }
+
         }
 
         @Override
@@ -103,7 +119,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener
     public void onNoteClick(int position, String title, String subTitle1, String subTitle2) {
         Home home=homeList.get(position);
 
-        //Toast.makeText(getActivity(), title, Toast.LENGTH_SHORT).show();
         //Toast.makeText(getActivity(), "CardView Position: "+String.valueOf(position)+" Title:"+home.getTitle(), Toast.LENGTH_SHORT).show();
         //Log.d("cardviewPosition", String.valueOf(position));
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,8 @@ public class HomeAdapter extends RecyclerView.Adapter<com.example.cryptolocker.H
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+
+
         View view = LayoutInflater.from(mCtx).inflate(R.layout.list_layout_home, parent, false);
         return new HomeViewHolder(view,mOnNoteListener);
     }
@@ -37,13 +40,24 @@ public class HomeAdapter extends RecyclerView.Adapter<com.example.cryptolocker.H
         com.example.cryptolocker.Home home=homeList.get(position);
 
 
-        //Decryption occurs here:
         String title,subTitle1,subTitle2,category;
-        title=Aes256.decrypt(home.getTitle());
-        subTitle1=Aes256.decrypt(home.getSubTitle1());
-        subTitle2=Aes256.decrypt(home.getSubTitle2());
-        category=Aes256.decrypt(home.getCategory());
-        //
+        title=home.getTitle();
+        subTitle1=home.getSubTitle1();
+        subTitle2=home.getSubTitle2();
+        category=home.getCategory();
+
+
+
+
+//        //Decryption occurs here:
+//        String title,subTitle1,subTitle2,category;
+//        decryptedData=Aes256.decrypt(home.getTitle(),home.getSubTitle1(),home.getSubTitle2(),home.getCategory());
+//
+//        title=decryptedData.get(0);
+//        subTitle1=decryptedData.get(1);
+//        subTitle2=decryptedData.get(2);
+//        category=decryptedData.get(3);
+//        //
 
         holder.textViewTitle.setText(title);
         holder.textViewSubTitle1.setText(subTitle1);

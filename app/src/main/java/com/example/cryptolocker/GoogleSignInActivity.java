@@ -22,9 +22,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class GoogleSignInActivity extends AppCompatActivity implements View.OnClickListener{
+public class GoogleSignInActivity extends AppCompatActivity{
     public static final int REQUEST_CODE = 10005;
     SignInButton signIn;
     GoogleSignInOptions gso;
@@ -43,7 +49,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
         getSupportActionBar().hide();
 
 
-        progressDialog= new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
 
         signIn = findViewById(R.id.signin);
         signIn.setSize(SignInButton.SIZE_STANDARD);
@@ -58,21 +64,21 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
         signInClient = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-        if (signInAccount != null && firebaseAuth.getCurrentUser()!=null) {
+        if (signInAccount != null && firebaseAuth.getCurrentUser() != null) {
             Toast.makeText(this, "User is logged in Already.", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), NavigationDrawerActivity.class));
+            startActivity(new Intent(getApplicationContext(), ValidateMasterPin.class));
         }
-
-        signIn.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (signIn.equals(v)) {
-            progressDialog.setMessage(" Please Wait...");
-            progressDialog.show();
-            signIn();
-            // ...
+        else
+        {
+            signIn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    progressDialog.setMessage(" Please Wait...");
+                    progressDialog.show();
+                    signIn();
+                    // ...
+                }
+            });
         }
     }
 
@@ -96,9 +102,33 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(getApplicationContext(), "Your Google Account is connected to our application.", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), NavigationDrawerActivity.class));
+
+                                //Check User Already Exists
+                                FirebaseUser user=firebaseAuth.getCurrentUser();
+                                DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference("Pin").child(user.getUid());
+                                databaseReference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.exists())
+                                        {
+                                            startActivity(new Intent(getApplicationContext(), ValidateMasterPin.class));
+                                            finish();
+                                        }
+                                        else
+                                        {
+                                            startActivity(new Intent(getApplicationContext(), MasterPassword.class));
+                                            finish();
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getApplicationContext(), "Fail to get data.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                //
                                 progressDialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Your Google Account is connected to our application.", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -113,7 +143,6 @@ public class GoogleSignInActivity extends AppCompatActivity implements View.OnCl
             }
         }
     }
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);

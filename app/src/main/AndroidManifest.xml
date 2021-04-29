@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewDataActivity"></activity>
+        <activity android:name=".ValidateMasterPin"></activity>
+        <activity android:name=".SetUpMasterPin" />
+        <activity android:name=".MasterPassword" />
+        <activity android:name=".ViewDataActivity" />
         <activity android:name=".LogoutActivity" />
         <activity android:name=".GoogleSignInActivity" />
         <activity

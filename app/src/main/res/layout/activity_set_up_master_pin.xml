@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".SetUpMasterPin">
+    <RelativeLayout
+        android:id="@+id/SetMasterPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/textViewSetMasterPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:text="Setup Pin"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+
+        <ImageView
+            android:id="@+id/imageView_SetMasterPasswordLocker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewSetMasterPassword"
+            app:srcCompat="@drawable/icon_setmasterpassword_locker" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutSetMasterPassword_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/SetMasterPassword"
+        android:layout_centerHorizontal="true"
+        android:paddingHorizontal="30dp">
+
+        <ImageView
+            android:id="@+id/imageViewSetMasterPassword_Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/icon_setmasterpassword_info" />
+
+        <TextView
+            android:id="@+id/textViewSetMasterPassword_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imageViewSetMasterPassword_Info"
+            android:text="If the master pin is lost, stored passwords cannot be recovered."
+            android:textSize="17dp"/>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editTextMasterPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutSetMasterPassword_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:ems="4"
+        android:maxLength="4"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:inputType="numberPassword" />
+
+    <Button
+        android:id="@+id/button_setMasterPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/editTextMasterPin"
+        android:text="Next"
+        android:textColor="#ffffff"
+        android:background="@color/colorPrimary"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

@@ -1,8 +1,10 @@
 package com.example.cryptolocker;
 
+import java.util.ArrayList;
+
 public class Home {
     private String title, subTitle1, subTitle2,category;
-
+    private ArrayList<String> decryptedData;
 
 
     public String getTitle() {
@@ -22,6 +24,14 @@ public class Home {
         this.subTitle1 = subTitle1;
         this.subTitle2 = subTitle2;
         this.category = category;
+    }
+
+    public void decryptHome(String uid){
+        decryptedData=Aes256.decrypt(title,subTitle1,subTitle2,category,uid);
+        this.title=decryptedData.get(0);
+        this.subTitle1=decryptedData.get(1);
+        this.subTitle2=decryptedData.get(2);
+        this.category=decryptedData.get(3);
     }
 
     public Home() {

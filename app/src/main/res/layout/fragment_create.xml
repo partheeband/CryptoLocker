@@ -46,7 +46,9 @@
         android:layout_marginHorizontal="40dp"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@id/textview_create"
-        android:text="Save"/>
+        android:text="Save"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="#ffffff"/>
 
     <EditText
         android:id="@+id/editTextTitle"

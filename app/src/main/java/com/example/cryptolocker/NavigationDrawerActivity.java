@@ -76,7 +76,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
 //        firebaseAuth.getCurrentUser().getUid();
-        Toast.makeText(this,String.valueOf(firebaseAuth.getCurrentUser().getIdToken(true)), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,String.valueOf(firebaseAuth.getCurrentUser().getIdToken(true)), Toast.LENGTH_SHORT).show();
 
         userName.setText(firebaseAuth.getCurrentUser().getDisplayName());
         mailId.setText(firebaseAuth.getCurrentUser().getEmail());

@@ -14,11 +14,10 @@
         app:cardCornerRadius="10dp">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ffffff"
-            android:orientation="horizontal"
             android:paddingVertical="10dp">
 
 
@@ -26,14 +25,14 @@
                 android:id="@+id/imageView_home_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:paddingStart="40dp"
-                android:paddingEnd="20dp"
-                app:srcCompat="@drawable/icon_social_media" />
+                android:paddingEnd="20dp" />
 
             <RelativeLayout
+                android:id="@+id/relativeLayoutTextViews"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imageView_home_category">
 
 
                 <TextView
@@ -64,12 +63,13 @@
                 android:id="@+id/imageView_ViewData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/icons8_edit_96" />
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/icons8_edit_96"
+                android:paddingRight="45dp"/>
 
 
-        </LinearLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 

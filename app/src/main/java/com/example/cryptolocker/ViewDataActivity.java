@@ -13,26 +13,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
-public class ViewDataActivity extends AppCompatActivity implements View.OnClickListener{
-    String getTitle,getSubTitle1,getSubTitle2,getCategory;
-    EditText editTextTitle,editTextSubTitle1,editTextSubTitle2;
-    TextView textViewTitle,textViewSubTitle1,textViewSubTitle2;
+public class ViewDataActivity extends AppCompatActivity implements View.OnClickListener {
+    String getTitle, getSubTitle1, getSubTitle2, getCategory;
+    EditText editTextTitle, editTextSubTitle1, editTextSubTitle2;
+    TextView textViewTitle, textViewSubTitle1, textViewSubTitle2;
 
     private ClipboardManager myClipboard;
     private ClipData myClip;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_data);
 
-        textViewTitle=findViewById(R.id.textViewTitle);
-        textViewSubTitle1=findViewById(R.id.textViewSubtitle1);
-        textViewSubTitle2=findViewById(R.id.textViewSubtitle2);
+        textViewTitle = findViewById(R.id.textViewTitle);
+        textViewSubTitle1 = findViewById(R.id.textViewSubtitle1);
+        textViewSubTitle2 = findViewById(R.id.textViewSubtitle2);
 
-        editTextTitle=findViewById(R.id.editTextTitle);
-        editTextSubTitle1=findViewById(R.id.editTextSubTitle1);
-        editTextSubTitle2=findViewById(R.id.editTextSubTitle2);
+        editTextTitle = findViewById(R.id.editTextTitle);
+        editTextSubTitle1 = findViewById(R.id.editTextSubTitle1);
+        editTextSubTitle2 = findViewById(R.id.editTextSubTitle2);
 
         editTextTitle.setOnClickListener(this);
         editTextSubTitle1.setOnClickListener(this);
@@ -42,18 +42,17 @@ public class ViewDataActivity extends AppCompatActivity implements View.OnClickL
 
         Intent intent = getIntent();
         Bundle bd = intent.getExtras();
-        if(bd != null)
-        {
-            getTitle= (String) bd.get("title");
-            getSubTitle1= (String) bd.get("subtitle1");
-            getSubTitle2= (String) bd.get("subtitle2");
-            getCategory= (String) bd.get("category");
+        if (bd != null) {
+            getTitle = (String) bd.get("title");
+            getSubTitle1 = (String) bd.get("subtitle1");
+            getSubTitle2 = (String) bd.get("subtitle2");
+            getCategory = (String) bd.get("category");
         }
 
 
-        //Decryption occurs here
-        getCategory=Aes256.decrypt(getCategory);
-        //
+//        //Decryption occurs here
+//        getCategory=Aes256.decrypt(getCategory);
+//        //
 
 
         editTextTitle.setText(getTitle);
@@ -65,17 +64,13 @@ public class ViewDataActivity extends AppCompatActivity implements View.OnClickL
         editTextSubTitle2.setKeyListener(null);
 
 
-
-        if (getCategory.equals("social media"))
-        {
+        if (getCategory.equals("social media")) {
             //Toast.makeText(this, getTitle+" "+getSubTitle1+" "+getSubTitle2, Toast.LENGTH_SHORT).show();
 
             textViewTitle.setText("Account");
             textViewSubTitle1.setText("Username");
             textViewSubTitle2.setText("Password");
-        }
-        else if (getCategory.equals("bank"))
-        {
+        } else if (getCategory.equals("bank")) {
             textViewTitle.setText("Bank Name");
             textViewSubTitle1.setText("Account Number");
             textViewSubTitle2.setText("Pin");

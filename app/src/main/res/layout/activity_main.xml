@@ -1,15 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_mainactivity"
     tools:context=".MainActivity">
 
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
-</LinearLayout>
+        android:layout_centerInParent="true">
+        <ImageView
+            android:id="@+id/imageViewLocker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/icon_mainactivity_locker"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/textViewMainActivityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/imageViewLocker"
+            android:layout_centerHorizontal="true"
+            android:text="CrptoLocker"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/textViewMainActivitySubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/textViewMainActivityTitle"
+            android:layout_centerHorizontal="true"
+            android:text="We Keep It Safe"
+            android:textStyle="bold"
+            android:textSize="18dp"/>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textViewMainActivitySubTitle"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
