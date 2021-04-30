@@ -51,8 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/imageViewSetMasterPassword_Info"
-            android:text="Please Enter Valid Master Pin To Continue..."
-            android:textAlignment="center"
+            android:text="If the master pin is lost, stored passwords cannot be recovered."
             android:textSize="17dp"/>
     </RelativeLayout>
 

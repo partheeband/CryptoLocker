@@ -25,7 +25,6 @@
                 android:id="@+id/imageView_home_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:paddingStart="40dp"
                 android:paddingEnd="20dp" />
 

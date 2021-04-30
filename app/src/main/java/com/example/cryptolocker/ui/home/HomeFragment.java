@@ -55,8 +55,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.onNoteListener
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        textView.setVisibility(View.GONE);
-        //textView.setText("This is home fragment");
+        textView.setText("This is home fragment");
 
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
