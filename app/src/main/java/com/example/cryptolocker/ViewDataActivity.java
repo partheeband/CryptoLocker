@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ public class ViewDataActivity extends AppCompatActivity implements View.OnClickL
     String getTitle, getSubTitle1, getSubTitle2, getCategory;
     EditText editTextTitle, editTextSubTitle1, editTextSubTitle2;
     TextView textViewTitle, textViewSubTitle1, textViewSubTitle2;
+    ImageView imageViewDelete;
 
     private ClipboardManager myClipboard;
     private ClipData myClip;
@@ -34,9 +36,12 @@ public class ViewDataActivity extends AppCompatActivity implements View.OnClickL
         editTextSubTitle1 = findViewById(R.id.editTextSubTitle1);
         editTextSubTitle2 = findViewById(R.id.editTextSubTitle2);
 
+        imageViewDelete = findViewById(R.id.imageView_delete);
+
         editTextTitle.setOnClickListener(this);
         editTextSubTitle1.setOnClickListener(this);
         editTextSubTitle2.setOnClickListener(this);
+        imageViewDelete.setOnClickListener(this);
 
         myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
@@ -97,6 +102,10 @@ public class ViewDataActivity extends AppCompatActivity implements View.OnClickL
                 myClipboard.setPrimaryClip(myClip);
                 Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.imageView_delete:
+                Toast.makeText(this, "Deleted Successfully...", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,NavigationDrawerActivity.class));
+                finish();
         }
     }
 }
